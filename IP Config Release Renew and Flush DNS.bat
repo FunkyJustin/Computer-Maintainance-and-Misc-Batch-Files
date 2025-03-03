@@ -1,5 +1,14 @@
 @echo off
 
+:: Check if the script is running with administrative privileges
+:: If not, it will re-run itself with elevated privileges
+net session >nul 2>&1
+if %errorLevel% neq 0 (
+    echo Requesting administrative privileges...
+    powershell -Command "Start-Process '%~f0' -Verb RunAs"
+    exit
+)
+
 :begin
 echo Releasing IP Address...
 ipconfig /release
@@ -13,6 +22,12 @@ echo Flushing DNS
 ipconfig /flushdns
 
 echo.
+
+echo Resetting the Winsock catalog and TCP/IP settings
+netsh winsock reset
+
+echo.
+
 
 :ask
 set /p choice=Do you want to run the program again? (yes/no) or (y/n):

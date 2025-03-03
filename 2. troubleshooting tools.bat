@@ -20,7 +20,8 @@ echo 4. Disk Management
 echo 5. Set Date and Time
 echo 6. Synchronize Time
 echo 7. Open My Computer (This PC)
-echo 8. Exit
+echo 8. Malicious Software Removal Tool
+echo 9. Exit
 echo ======================================
 set /p choice="Enter your choice (1-8): "
 
@@ -31,10 +32,17 @@ if %choice%==4 goto diskmgmt
 if %choice%==5 goto datetime
 if %choice%==6 goto synctime
 if %choice%==7 goto mycomputer
-if %choice%==8 goto exit
+if %choice%==8 goto malicioussoftwareremovaltool
+if %choice%==9 goto exit
 
 echo Invalid choice, please try again.
 pause
+goto menu
+
+:malicioussoftwareremovaltool
+start mrt
+echo Opening Microsoft Windows Malicious Software Removal Tool...
+timeout /t 2 >nul
 goto menu
 
 :compmgmt
